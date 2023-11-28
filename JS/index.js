@@ -10,3 +10,13 @@ for (let button of buttons) {
   sideBar.appendChild(btn);
 }
 console.log(Object.keys(quizObject));
+
+const hamburgerMenu = document.createElement("img");
+hamburgerMenu.setAttribute("src", "img/hamburger-button.svg");
+hamburgerMenu.setAttribute("width", "48");
+hamburgerMenu.setAttribute("height", "48");
+hamburgerMenu.setAttribute("alt", "test");
+document.body.appendChild(hamburgerMenu);
+hamburgerMenu.addEventListener("click", () => {
+  console.log("hjelpameg");
+});
