@@ -26,5 +26,5 @@ hamburgerMenu.addEventListener("click", () => {
         sideBar.style.display = "none"
         menuOpen = false
     }
-  console.log("hjelpameg");
+  console.log("Hamburger button is working.");
 });
