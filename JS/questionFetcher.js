@@ -69,6 +69,7 @@ const getQuestions = async () => {
       answers.allAnswers = answers.incorrect_answers.map((x) => x);
       answers.allAnswers.push(answers.correct_answer);
       answers.allAnswers.sort();
+      answers.isCompleted = false
     }
   }
 };
