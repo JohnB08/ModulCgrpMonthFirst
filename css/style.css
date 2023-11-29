@@ -1,4 +1,6 @@
-
+body{
+    position: relative;
+}
 
 
 
@@ -7,5 +9,9 @@
 
 
 .sidebar{
-    display: none;
+    display: ;
+    position: absolute;
+    background-color: red;
+    margin-right: 100%;
+    margin-top: 45px;
 }
