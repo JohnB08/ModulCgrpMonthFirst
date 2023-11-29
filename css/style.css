@@ -1,15 +1,24 @@
 body{
-    position: relative;
+position: relative;
+display: flex;
 }
 
 
 
 
 
-
+.sidebarContainer{
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    position: relative;
+    background-color: rgba(57, 62, 65, 1);
+    padding: 100% 200px;
+    
+}
 
 .sidebar{
-    display: ;
+    display: none;
     position: absolute;
     background-color: red;
     margin-right: 100%;
