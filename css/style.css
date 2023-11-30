@@ -8,21 +8,25 @@ body {
   position: relative;
   display: flex;
 }
+.hamburgermenu{
+  position: absolute;
+  background-color: #fff;
+}
 .sidebarContainer {
-  flex-direction: column;
+  display: flex;
   justify-content: start;
-  align-items: flex-start;
-  position: relative;
+  align-items: center;
+  position: absolute;
   background-color: rgba(57, 62, 65, 1);
-  padding: 100% 200px;
+  padding:  50vh 200px;
 }
 
 .sidebar {
-  display: none;
+  display: flex;
   position: absolute;
   background-color: red;
   margin-right: 100%;
-  margin-top: 45px;
+  flex-direction: column;
 }
 
 .card {

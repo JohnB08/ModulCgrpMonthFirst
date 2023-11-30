@@ -2,6 +2,7 @@ import quizObject from "./quizObject.json" assert { type: "json" };
 
 console.log(quizObject);
 const sideBar = document.querySelector(".sidebar");
+const SideBarContainer = document.querySelector(".sidebarContainer")
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
@@ -17,13 +18,14 @@ hamburgerMenu.setAttribute("src", "img/hamburger-button.svg");
 hamburgerMenu.setAttribute("width", "48");
 hamburgerMenu.setAttribute("height", "48");
 hamburgerMenu.setAttribute("alt", "test");
+hamburgerMenu.classList.add("hamburgermenu")
 document.body.appendChild(hamburgerMenu);
 hamburgerMenu.addEventListener("click", () => {
   if (menuOpen === false) {
-    sideBar.style.display = "block";
+    SideBarContainer.style.display = "flex";
     menuOpen = true;
   } else {
-    sideBar.style.display = "none";
+    SideBarContainer.style.display = "none";
     menuOpen = false;
   }
   console.log("Hamburger button is working.");
