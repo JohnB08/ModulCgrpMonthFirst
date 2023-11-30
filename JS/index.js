@@ -69,7 +69,7 @@ function showQuestion(){
         if(answer.correct){
             button.dataset.correct = answer.correct
         }
-        button.addEventListener("click", selectAnswer)
+        button.addEventListener("click", selectAnswer())
     }) 
 
 }
@@ -96,3 +96,32 @@ function selectAnswer(){
     })
     nextButton.style.display = "block"
 }
+
+function showScore(){
+    resetState();
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`
+    nextButton.innerHTML = "play Again"
+    nextButton.style.display = "block"
+}
+
+function handleNextButton(){
+    currentQuestionIndex++;
+    if(currentQuestionIndex < questions.length){
+        showQuestion()
+    } else {
+        showScore()
+    }
+}
+
+nextButton.addEventListener("click", ()=>{
+    if(currentQuestionIndex < questions.length){
+        handleNextButton()
+    } else {
+        startQuiz()
+    }
+})
+
+
+
+
+startQuiz()
