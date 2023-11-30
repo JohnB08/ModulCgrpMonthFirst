@@ -66,3 +66,11 @@ body{
     border-radius: 4px;
     cursor: pointer;
 }
+
+.correct{
+    background: brown
+}
+
+.incorrect{
+    background: yellow
+}
