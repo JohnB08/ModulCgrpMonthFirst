@@ -11,6 +11,7 @@ body {
 .hamburgermenu{
   position: absolute;
   background-color: #fff;
+  border-radius: 10%;
 }
 .sidebarContainer {
   display: flex;
