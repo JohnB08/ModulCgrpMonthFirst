@@ -13,13 +13,16 @@ body {
   background-color: #fff;
   border-radius: 10%;
 }
+.hamburgermenu:hover{
+ background-color: rgba(57, 62, 65, 1) ;
+}
 .sidebarContainer {
-  display: flex;
+  display: none;
   justify-content: start;
   align-items: center;
   position: absolute;
   background-color: rgba(57, 62, 65, 1);
-  padding:  50vh 200px;
+  padding:  50vh 160px;
 }
 
 .sidebar {
@@ -28,6 +31,7 @@ body {
   background-color: red;
   margin-right: 100%;
   flex-direction: column;
+  width: 30%;
 }
 
 .card {

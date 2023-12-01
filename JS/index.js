@@ -51,7 +51,7 @@ const questions = [
             {Text: "FORTRAN", correct: true},
             
         ]
-    }
+    },
     {
         question:"Who discovered the internet?",
         answer:
@@ -61,7 +61,7 @@ const questions = [
             {text: "Tim Berners Lee", correct: true}, 
             {text: "Paul Baran", correct: false}, 
         ]
-    }
+    },
     {
         question:"Who discovered America in the 14th century?",
         answer:
