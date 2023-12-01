@@ -14,6 +14,7 @@ body {
   border-radius: 10%;
 }
 .hamburgermenu:hover{
+  cursor: pointer;
  background-color: rgba(57, 62, 65, 1) ;
 }
 .sidebarContainer {
@@ -28,7 +29,6 @@ body {
 .sidebar {
   display: flex;
   position: absolute;
-  background-color: red;
   margin-right: 100%;
   flex-direction: column;
   width: 30%;
