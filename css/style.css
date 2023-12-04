@@ -111,6 +111,10 @@ basert på figmafil. */
   font: bold 16px/24px "Open Sans", sans-serif;
 }
 
+.descriptionText {
+  font: 24px/26px "Open Sans", sans-serif;
+}
+
 /* correct/incorrect */
 
 .correct {
