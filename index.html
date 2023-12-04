@@ -4,22 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="./JS/index.js" type="module" defer></script>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <div class="sidebarContainer">
+    <div class="sidebarContainer darkMode">
       <div class="sidebar"></div>
     </div>
     <div class="container">
       <div id="question-container" class="hide"></div>
       <div class="controls"></div>
     </div>
-    <div class="card">
-      <h1>Quiz</h1>
+    <div class="card darkMode border">
+      <h1 class="headerText">Quiz</h1>
 
       <div class="quiz">
-        <h2 id="question">Here is the question</h2>
+        <h2 id="question" class="subHeaderText">Here is the question</h2>
         <div id="answer-buttons">
           <button class="btn">Answer1</button>
           <button class="btn">Answer2</button>

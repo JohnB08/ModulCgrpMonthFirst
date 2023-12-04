@@ -1,21 +1,28 @@
+:root {
+  --light: #f6f7eb;
+  --dark: #393e41;
+  --borderColor: #e94f37;
+}
+
 * {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
+  letter-spacing: 105%;
 }
 body {
   position: relative;
   display: flex;
+  font-family: "Open Sans", sans-serif;
 }
-.hamburgermenu{
+.hamburgermenu {
   position: absolute;
   background-color: #fff;
   border-radius: 10%;
 }
-.hamburgermenu:hover{
+.hamburgermenu:hover {
   cursor: pointer;
- background-color: rgba(57, 62, 65, 1) ;
+  background-color: rgba(57, 62, 65, 1);
 }
 .sidebarContainer {
   display: none;
@@ -23,7 +30,7 @@ body {
   align-items: center;
   position: absolute;
   background-color: rgba(57, 62, 65, 1);
-  padding:  50vh 160px;
+  padding: 50vh 160px;
 }
 
 .sidebar {
@@ -35,36 +42,20 @@ body {
 }
 
 .card {
-  background: #fff;
   width: 90%;
   max-width: 600px;
   margin: 100px auto 0;
-  border-radius: 10px;
   padding: 30px;
-}
-
-.card h1 {
-  font-weight: 25px;
-  color: #001e4d;
-  font-weight: 600;
-  border-bottom: 1px solid #333;
-  padding-bottom: 30px;
 }
 
 .quiz {
   padding: 20px 0;
 }
 
-.quiz h2 {
-  font-size: 18px;
-  color: black;
-  font-weight: 600;
-}
-
 .btn {
   background: #fff;
   color: #222;
-  font-weight: 500;
+  font: var(--buttonText);
   width: 100%;
   border: 1px solid #222;
   padding: 10px;
@@ -75,9 +66,30 @@ body {
   transition: all 0.3s;
 }
 
-.btn:hover{
-    background: blueviolet;
-    color: white;
+.btn:hover {
+  background: blueviolet;
+  color: white;
+}
+
+/* Felles classes for farge og border for cardelementer
+basert på figmafil. */
+
+.darkMode {
+  color: var(--light);
+  background-color: var(--dark);
+}
+
+.border {
+  border: 2px solid var(--borderColor);
+  border-radius: 10px;
+}
+
+.headerText {
+  font: 48px/50px bold "Open Sans", sans-serif;
+}
+
+.subHeaderText {
+  font: 24px/26px bold "Open Sans", sans-serif;
 }
 
 #next-btn {
@@ -92,10 +104,10 @@ body {
   cursor: pointer;
 }
 
-.correct{
-    background: brown
+.correct {
+  background: brown;
 }
 
-.incorrect{
-    background: yellow
+.incorrect {
+  background: yellow;
 }
