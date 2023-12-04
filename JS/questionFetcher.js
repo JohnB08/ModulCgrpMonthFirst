@@ -1,10 +1,11 @@
 //!DENNE KODEN TRENGER IKKE Å KJØRE IGJEN, ER HER KUN FOR Å VISE ARBEIDSMETODE
-
+const fs = require("fs");
+const filePath = "./quizObject.json";
+const quizObject = {};
 //URL for å finne alle categoriene fra openTDB
 const triviaUrl = "https://opentdb.com/api_category.php";
 
 //lager et tomt quizObject
-const quizObject = {};
 
 /**
  * funksjon for å fetche api basert på URL
@@ -46,9 +47,6 @@ const getCategories = async () => {
     quizObject[category.name] = category;
   }
   await getQuestions();
-  const completeObject = JSON.stringify(quizObject);
-  //kan kopiere stringen fra console til object.json. og ha en lagret kopi av objectet som kan importeres inn i index.json
-  console.log(completeObject);
 };
 
 /**
@@ -75,5 +73,13 @@ const getQuestions = async () => {
   }
 };
 
-//kjører koden.
-getCategories();
+const writeObject = async () => {
+  await getCategories();
+  fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
+  console.log("write successfull");
+};
+
+writeObject();
+
+/* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
+/* Fungerer kun hvis man har node installert. */
