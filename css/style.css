@@ -111,6 +111,8 @@ basert på figmafil. */
   font: bold 16px/24px "Open Sans", sans-serif;
 }
 
+/* correct/incorrect */
+
 .correct {
   background: brown;
 }
