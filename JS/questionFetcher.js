@@ -77,10 +77,12 @@ const getQuestions = async () => {
 };
 
 /**
- * Funksjon som skriver det nye objectet inn i quizObject.json via node.js
+ * Funksjon som overskriver det nye objectet inn i quizObject.json via node.js
+ * Vi trenger ikke tenke på hva som allerede står, fordi hver gang det kjører vil vi få nye spørsmål fra api, vi vil ikke beholde de gamle.
  */
 const writeObject = async () => {
   await getCategories();
+  //null er en "replacer", siden vi ikke trenger å replace noe er det null. 2 er "added whitespace", pynting, gjør objectet mye mer leslig både i stringified form, og i JSON filen.
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
   console.log("write successfull");
 };
