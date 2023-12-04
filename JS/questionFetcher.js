@@ -60,6 +60,7 @@ const getQuestions = async () => {
   const categories = Object.keys(quizObject);
   for (let category of categories) {
     await returnPromise(6000);
+    console.log("fetching category");
     const questionUrl = `https://opentdb.com/api.php?amount=10&category=${quizObject[category].id}&type=multiple`;
     const fetchedQuestions = await fetchApi(questionUrl);
     quizObject[category].currentIndex = 0;
