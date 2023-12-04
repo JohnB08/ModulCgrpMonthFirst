@@ -20,19 +20,19 @@ body {
 }
 .hamburgermenu {
   position: absolute;
-  background-color: #fff;
+  background-color: var(--light);
   border-radius: 10%;
 }
 .hamburgermenu:hover {
   cursor: pointer;
-  background-color: rgba(57, 62, 65, 1);
+  background-color: var(--dark);
 }
 .sidebarContainer {
   display: none;
   justify-content: start;
   align-items: center;
   position: absolute;
-  background-color: rgba(57, 62, 65, 1);
+  background-color: var(--dark);
   padding: 50vh 160px;
   border-right: 2px solid var(--borderColor);
 }
