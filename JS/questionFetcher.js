@@ -64,12 +64,13 @@ const getQuestions = async () => {
     await returnPromise(6000);
     const questionUrl = `https://opentdb.com/api.php?amount=10&category=${quizObject[category].id}&type=multiple`;
     const fetchedQuestions = await fetchApi(questionUrl);
+    quizObject[category].currentIndex = 0;
+    quizObject[category].currentScore = 0;
     quizObject[category].questionArray = fetchedQuestions.results;
     for (let answers of quizObject[category].questionArray) {
       answers.allAnswers = answers.incorrect_answers.map((x) => x);
       answers.allAnswers.push(answers.correct_answer);
       answers.allAnswers.sort();
-      answers.isCompleted = false
     }
   }
 };
