@@ -73,6 +73,9 @@ const getQuestions = async () => {
   }
 };
 
+/**
+ * Funksjon som skriver det nye objectet inn i quizObject.json via node.js
+ */
 const writeObject = async () => {
   await getCategories();
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
