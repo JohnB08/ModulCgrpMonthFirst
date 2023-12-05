@@ -113,6 +113,7 @@ basert på figmafil. */
 .btnDark:hover {
   background: var(--dark);
   color: var(--light);
+  border: 2px solid var(--light);
 }
 
 .btnDark:disabled {
@@ -133,14 +134,14 @@ basert på figmafil. */
 }
 
 .subHeaderText {
-  font: bold 24px/26px "Open Sans", sans-serif;
+  font: bold 24px/28px "Open Sans", sans-serif;
 }
 .btnText {
   font: bold 16px/24px "Open Sans", sans-serif;
 }
 
 .descriptionText {
-  font: 24px/26px "Open Sans", sans-serif;
+  font: 24px/28px "Open Sans", sans-serif;
 }
 
 /* correct/incorrect */
@@ -151,4 +152,16 @@ basert på figmafil. */
 
 .incorrect {
   background: var(--borderColor);
+}
+
+@media only screen and (max-width: 600px) {
+  .headerText {
+    font-size: 24px;
+  }
+  .subHeaderText {
+    font-size: 16px;
+  }
+  .btnText {
+    font-size: 12px;
+  }
 }
