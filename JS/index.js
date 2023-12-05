@@ -13,6 +13,7 @@ for (let button of buttons) {
   sideBar.appendChild(btn);
   btn.addEventListener("click", () => {
     currentCategory = btn.textContent;
+    resetState();
     fetchQuizElement(currentCategory);
   });
 }
