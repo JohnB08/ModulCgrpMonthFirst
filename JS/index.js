@@ -92,13 +92,13 @@ let activeBtns = [];
 let activeAnswer = "";
 
 const fetchQuizElement = (categoryName) => {
-  questionTracker.textContent = `${
+  questionTracker.innerHTML = `${
     quizObject[categoryName].currentIndex + 1
   } of ${quizObject[categoryName].questionArray.length} ${categoryName}`;
   activeScreen.style.display = "none";
   activeScreen = questionCard;
   activeScreen.style.display = "flex";
-  questionElement.textContent = `${
+  questionElement.innerHTML = `${
     quizObject[categoryName].questionArray[
       quizObject[categoryName].currentIndex
     ].question
@@ -111,7 +111,7 @@ const fetchQuizElement = (categoryName) => {
     quizObject[categoryName].currentIndex
   ].allAnswers.forEach((answer) => {
     const button = document.createElement("button");
-    button.textContent = answer;
+    button.innerHTML = answer;
     button.classList.add("btn", "btnDark", "btnText");
     answerButtons.appendChild(button);
     activeBtns.push(button);
@@ -123,7 +123,7 @@ const fetchQuizElement = (categoryName) => {
 
 function selectAnswer(e, categoryName) {
   const selectedBtn = e.target;
-  if (selectedBtn.textContent === activeAnswer) {
+  if (selectedBtn.innerHTML === activeAnswer) {
     selectedBtn.classList.add("correct");
     console.log("correct!");
     quizObject[categoryName].currentScore++;
@@ -133,7 +133,7 @@ function selectAnswer(e, categoryName) {
 
   activeBtns.forEach((button) => {
     button.disabled = true;
-    if (button.textContent === activeAnswer) {
+    if (button.innerHTML === activeAnswer) {
       button.classList.add("correct");
     }
   });
