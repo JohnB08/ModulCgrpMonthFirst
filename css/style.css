@@ -108,6 +108,7 @@ basert på figmafil. */
 .btnDark {
   background: var(--light);
   color: var(--dark);
+  border: 2px solid var(--dark);
 }
 
 .btnDark:hover {
