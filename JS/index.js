@@ -1,14 +1,20 @@
 import quizObject from "./quizObject.json" assert { type: "json" };
 
 console.log(quizObject);
+
+let currentCategory = "";
+
 const sideBar = document.querySelector(".sidebar");
 const SideBarContainer = document.querySelector(".sidebarContainer");
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
-  const btnText = document.createTextNode(button);
-  btn.appendChild(btnText);
+  btn.textContent = button;
   sideBar.appendChild(btn);
+  btn.addEventListener("click", () => {
+    currentCategory = btn.textContent;
+    fetchQuizElement(currentCategory);
+  });
 }
 console.log(Object.keys(quizObject));
 
@@ -31,7 +37,7 @@ hamburgerMenu.addEventListener("click", () => {
   console.log("Hamburger button is working.");
 });
 
-const questions = [
+/* const questions = [
   {
     question: "Who is the best football star in the world?",
     answers: [
@@ -69,22 +75,91 @@ const questions = [
     ],
   },
 ];
-
+ */
+const startPage = document.querySelector(".homeScreen");
+const questionCard = document.querySelector(".card");
+const summaryPage = document.querySelector(".summaryPage");
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
+const scoreOutput = document.querySelector(".scoreOutput");
+const resetBtn = document.querySelector("#resetBtn");
 
-let currentQuestionIndex = 0;
-let score = 0;
+let activeScreen = startPage;
+let activeBtns = [];
+let activeAnswer = "";
+
+const fetchQuizElement = (categoryName) => {
+  activeScreen.style.display = "none";
+  activeScreen = questionCard;
+  activeScreen.style.display = "flex";
+  questionElement.textContent = `${
+    quizObject[categoryName].questionArray[
+      quizObject[categoryName].currentIndex
+    ].question
+  }`;
+  activeAnswer =
+    quizObject[categoryName].questionArray[
+      quizObject[categoryName].currentIndex
+    ].correct_answer;
+  quizObject[categoryName].questionArray[
+    quizObject[categoryName].currentIndex
+  ].allAnswers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.textContent = answer;
+    button.classList.add("btn", "btnDark", "btnText");
+    answerButtons.appendChild(button);
+    activeBtns.push(button);
+    button.addEventListener("click", (event) =>
+      selectAnswer(event, categoryName)
+    );
+  });
+};
+
+function selectAnswer(e, categoryName) {
+  const selectedBtn = e.target;
+  if (selectedBtn.textContent === activeAnswer) {
+    selectedBtn.classList.add("correct");
+    console.log("correct!");
+    quizObject[categoryName].currentScore++;
+  } else {
+    selectedBtn.classList.add("incorrect");
+  }
+
+  activeBtns.forEach((button) => {
+    button.disabled = true;
+    if (button.textContent === activeAnswer) {
+      button.classList.add("correct");
+    }
+  });
+  nextButton.textContent = "Next";
+  nextButton.style.display = "block";
+}
+function handleNextButton(categoryName) {
+  quizObject[categoryName].currentIndex++;
+  activeBtns.forEach((button) => {
+    button.remove();
+  });
+  activeBtns = [];
+  if (
+    quizObject[categoryName].currentIndex <
+    quizObject[categoryName].questionArray.length
+  ) {
+    fetchQuizElement(categoryName);
+  } else {
+    showScore(categoryName);
+  }
+}
+
+nextButton.addEventListener("click", () => {
+  handleNextButton(currentCategory);
+});
 
 function startQuiz() {
-  let currentQuestionIndex = 0;
-  let score = 0;
-  nextButton.innerHTML = "Next";
   showQuestion();
 }
 
-function showQuestion() {
+/* function showQuestion() {
   resetState();
   let currentQuestion = questions[currentQuestionIndex];
   let questionNo = currentQuestionIndex + 1;
@@ -99,56 +174,24 @@ function showQuestion() {
       button.dataset.correct = answer.correct;
     }
     button.addEventListener("click", selectAnswer);
-  });
-}
+  }); */
+/* } */
 
 function resetState() {
   nextButton.style.display = "none";
-  while (answerButtons.firstChild) {
-    answerButtons.removeChild(answerButtons.firstChild);
-  }
-}
-
-function selectAnswer(e) {
-  const selectedBtn = e.target;
-  const isCorrect = selectedBtn.dataset.correct === "true";
-  if (isCorrect) {
-    selectedBtn.classList.add("correct");
-  } else {
-    selectedBtn.classList.add("incorrect");
-  }
-
-  Array.from(answerButtons.children).forEach((button) => {
-    if (button.dataset.correct === "true") {
-      button.classList.add("correct");
-    }
-    button.disabled = true;
+  activeBtns.forEach((button) => {
+    button.remove();
   });
-  nextButton.style.display = "block";
+  activeBtns = [];
 }
 
-function showScore() {
+function showScore(categoryName) {
+  quizObject[categoryName].currentIndex = 0;
   resetState();
-  questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
-  nextButton.innerHTML = "play Again";
-  nextButton.style.display = "block";
+  activeScreen.style.display = "none";
+  activeScreen = summaryPage;
+  activeScreen.style.display = "flex";
+  scoreOutput.textContent = `${quizObject[categoryName].currentScore} of ${quizObject[categoryName].questionArray.length}`;
+  quizObject[categoryName].currentScore = 0;
 }
-
-function handleNextButton() {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
-    showScore();
-  }
-}
-
-nextButton.addEventListener("click", () => {
-  if (currentQuestionIndex < questions.length) {
-    handleNextButton();
-  } else {
-    startQuiz();
-  }
-});
-
-startQuiz();
+resetBtn.addEventListener("click", () => fetchQuizElement(currentCategory));

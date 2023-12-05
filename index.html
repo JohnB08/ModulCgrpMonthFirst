@@ -17,24 +17,31 @@
     <div class="sidebarContainer darkMode">
       <div class="sidebar"></div>
     </div>
-    <div class="container">
-      <div id="question-container" class="hide"></div>
-      <div class="controls"></div>
+    <div class="homeScreen darkMode">
+      <img src="./img/Logo suggestion.svg" alt="quizly logo" />
+      <h1 class="headerText">
+        Choose a category <br />
+        in the menu
+      </h1>
     </div>
-    <div class="card darkMode border">
+    <div class="card darkMode border" style="display: none">
       <h1 class="headerText">Quiz</h1>
 
       <div class="quiz">
         <h2 id="question" class="subHeaderText">Here is the question</h2>
-        <div id="answer-buttons">
-          <button class="btn btnText btnDark">Answer1</button>
-          <button class="btn btnText btnDark">Answer2</button>
-          <button class="btn btnText btnDark">Answer3</button>
-          <button class="btn btnText btnDark">Answer4</button>
-        </div>
-
+        <div id="answer-buttons"></div>
         <button id="next-btn" class="btn btnText btnDark">Next</button>
       </div>
+    </div>
+    <div class="summaryPage darkMode border" style="display: none">
+      <h1 class="headerText">Summary</h1>
+      <p class="subHeaderText">
+        Gongratulations! <br />
+        you scored <br />
+        <span class="scoreOutput"></span> <br />
+        Good Job!
+      </p>
+      <button id="resetBtn" class="btn btnText btnDark">Restart Quiz</button>
     </div>
   </body>
 </html>

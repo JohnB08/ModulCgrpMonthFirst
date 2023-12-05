@@ -45,12 +45,32 @@ body {
   width: 30%;
 }
 
+.homeScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 600px;
   padding: 30px;
+}
+
+.summaryPage {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 600px;
+  padding: 30px;
+}
+.summaryPage .subHeaderText {
+  text-align: center;
 }
 
 .quiz {
@@ -118,9 +138,9 @@ basert på figmafil. */
 /* correct/incorrect */
 
 .correct {
-  background: brown;
+  background: #85934d;
 }
 
 .incorrect {
-  background: yellow;
+  background: var(--borderColor);
 }
