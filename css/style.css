@@ -115,6 +115,10 @@ basert på figmafil. */
   color: var(--light);
 }
 
+.btnDark:disabled {
+  opacity: 0.5;
+}
+
 .legend {
   padding: 5px 10px;
 }
