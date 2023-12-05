@@ -10,6 +10,8 @@ const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
   btn.textContent = button;
+  btn.style.width = "10vh"
+  btn.style.height = "4vh";
   sideBar.appendChild(btn);
   btn.addEventListener("click", () => {
     currentCategory = btn.textContent;
