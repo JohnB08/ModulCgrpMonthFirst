@@ -85,12 +85,16 @@ const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 const scoreOutput = document.querySelector(".scoreOutput");
 const resetBtn = document.querySelector("#resetBtn");
+const questionTracker = document.querySelector("#questionTracker");
 
 let activeScreen = startPage;
 let activeBtns = [];
 let activeAnswer = "";
 
 const fetchQuizElement = (categoryName) => {
+  questionTracker.textContent = `${
+    quizObject[categoryName].currentIndex + 1
+  } of ${quizObject[categoryName].questionArray.length} ${categoryName}`;
   activeScreen.style.display = "none";
   activeScreen = questionCard;
   activeScreen.style.display = "flex";

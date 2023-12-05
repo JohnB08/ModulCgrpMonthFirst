@@ -66,7 +66,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  width: 600px;
+  max-width: 600px;
   padding: 30px;
 }
 .summaryPage .subHeaderText {
@@ -113,6 +113,10 @@ basert på figmafil. */
 .btnDark:hover {
   background: var(--dark);
   color: var(--light);
+}
+
+.legend {
+  padding: 5px 10px;
 }
 
 .border {
