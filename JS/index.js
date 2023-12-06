@@ -30,6 +30,7 @@ for (let button of buttons) {
   btn.style.width = "90%";
   btn.style.height = "4vh";
   sideBar.appendChild(btn);
+  /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {
     currentCategory = btn.textContent;
     resetState();
