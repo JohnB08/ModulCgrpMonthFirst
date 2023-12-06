@@ -27,8 +27,7 @@ body {
 }
 .hamburgermenu:hover {
   cursor: pointer;
-  background-color: var(--dark);
-  border: 2px solid var(--borderColor);
+  border: 4px solid var(--borderColor);
 }
 
 .sidebarContainer {
