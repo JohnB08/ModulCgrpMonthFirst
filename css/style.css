@@ -20,6 +20,8 @@ body {
 }
 .hamburgermenu {
   position: absolute;
+  top: 20px;
+  left: 24px;
   width: 48px;
   height: 48px;
   background-color: var(--light);
@@ -27,7 +29,6 @@ body {
 }
 .hamburgermenu:hover {
   cursor: pointer;
-  border: 4px solid var(--borderColor);
 }
 
 .sidebarContainer {
@@ -44,6 +45,22 @@ body {
   padding: 20px 0;
   flex-direction: column;
   width: 20vw;
+}
+
+#arm1,
+#arm2,
+#arm3 {
+  transition: 300ms ease-in;
+}
+
+.armAnim1 {
+  transform: translate(18px) rotate(45deg);
+}
+.armAnim2 {
+  opacity: 0%;
+}
+.armAnim3 {
+  transform: translate(-18px, 16px) rotate(-45deg);
 }
 
 .homeScreen {
@@ -165,5 +182,8 @@ basert på figmafil. */
   }
   .btnText {
     font-size: 12px;
+  }
+  .sidebar {
+    width: 50vw;
   }
 }

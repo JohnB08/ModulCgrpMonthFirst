@@ -12,6 +12,9 @@ const nextButton = document.getElementById("next-btn");
 const scoreOutput = document.querySelector(".scoreOutput");
 const resetBtn = document.querySelector("#resetBtn");
 const questionTracker = document.querySelector("#questionTracker");
+const arm1 = document.querySelector("#arm1");
+const arm2 = document.querySelector("#arm2");
+const arm3 = document.querySelector("#arm3");
 
 let activeScreen = startPage;
 let activeBtns = [];
@@ -37,14 +40,28 @@ for (let button of buttons) {
 /* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
 hamburgerMenu.addEventListener("click", () => {
   if (menuOpen === false) {
-    SideBarContainer.style.display = "flex";
-    menuOpen = true;
+    openSideBar();
   } else {
-    SideBarContainer.style.display = "none";
-    menuOpen = false;
+    closeSideBar();
   }
   console.log("Hamburger button is working.");
 });
+
+function openSideBar() {
+  SideBarContainer.style.display = "flex";
+  arm1.classList.add("armAnim1");
+  arm2.classList.add("armAnim2");
+  arm3.classList.add("armAnim3");
+  menuOpen = true;
+}
+
+function closeSideBar() {
+  SideBarContainer.style.display = "none";
+  arm1.classList.remove("armAnim1");
+  arm2.classList.remove("armAnim2");
+  arm3.classList.remove("armAnim3");
+  menuOpen = false;
+}
 
 /**
  * Setter hvilke div som skal vises til en hver tid.
