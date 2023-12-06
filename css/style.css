@@ -183,4 +183,7 @@ basert på figmafil. */
   .btnText {
     font-size: 12px;
   }
+  .sidebar {
+    width: 50vw;
+  }
 }

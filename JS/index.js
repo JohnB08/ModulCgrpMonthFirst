@@ -40,20 +40,28 @@ for (let button of buttons) {
 /* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
 hamburgerMenu.addEventListener("click", () => {
   if (menuOpen === false) {
-    SideBarContainer.style.display = "flex";
-    arm1.classList.add("armAnim1");
-    arm2.classList.add("armAnim2");
-    arm3.classList.add("armAnim3");
-    menuOpen = true;
+    openSideBar();
   } else {
-    SideBarContainer.style.display = "none";
-    arm1.classList.remove("armAnim1");
-    arm2.classList.remove("armAnim2");
-    arm3.classList.remove("armAnim3");
-    menuOpen = false;
+    closeSideBar();
   }
   console.log("Hamburger button is working.");
 });
+
+function openSideBar() {
+  SideBarContainer.style.display = "flex";
+  arm1.classList.add("armAnim1");
+  arm2.classList.add("armAnim2");
+  arm3.classList.add("armAnim3");
+  menuOpen = true;
+}
+
+function closeSideBar() {
+  SideBarContainer.style.display = "none";
+  arm1.classList.remove("armAnim1");
+  arm2.classList.remove("armAnim2");
+  arm3.classList.remove("armAnim3");
+  menuOpen = false;
+}
 
 /**
  * Setter hvilke div som skal vises til en hver tid.
@@ -177,3 +185,4 @@ function showScore(categoryName) {
 
 /* Reset knappen starter quizen på nytt uten å skifte kategori. */
 resetBtn.addEventListener("click", () => fetchQuizElement(currentCategory));
+
