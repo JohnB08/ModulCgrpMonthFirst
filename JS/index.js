@@ -1,11 +1,24 @@
 import quizObject from "./quizObject.json" assert { type: "json" };
 
-console.log(quizObject);
-
-let currentCategory = "";
-
 const sideBar = document.querySelector(".sidebar");
 const SideBarContainer = document.querySelector(".sidebarContainer");
+const startPage = document.querySelector(".homeScreen");
+const questionCard = document.querySelector(".card");
+const summaryPage = document.querySelector(".summaryPage");
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
+const scoreOutput = document.querySelector(".scoreOutput");
+const resetBtn = document.querySelector("#resetBtn");
+const questionTracker = document.querySelector("#questionTracker");
+
+let activeScreen = startPage;
+let activeBtns = [];
+let activeAnswer = "";
+let currentCategory = "";
+let menuOpen = false;
+
+/* Lager knappene til sidebar */
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
@@ -19,9 +32,8 @@ for (let button of buttons) {
     fetchQuizElement(currentCategory);
   });
 }
-console.log(Object.keys(quizObject));
 
-let menuOpen = false;
+/* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
 const hamburgerMenu = document.createElement("img");
 hamburgerMenu.setAttribute("src", "img/hamburger-button.svg");
 hamburgerMenu.setAttribute("width", "48");
@@ -40,26 +52,21 @@ hamburgerMenu.addEventListener("click", () => {
   console.log("Hamburger button is working.");
 });
 
-const startPage = document.querySelector(".homeScreen");
-const questionCard = document.querySelector(".card");
-const summaryPage = document.querySelector(".summaryPage");
-const questionElement = document.getElementById("question");
-const answerButtons = document.getElementById("answer-buttons");
-const nextButton = document.getElementById("next-btn");
-const scoreOutput = document.querySelector(".scoreOutput");
-const resetBtn = document.querySelector("#resetBtn");
-const questionTracker = document.querySelector("#questionTracker");
-
-let activeScreen = startPage;
-let activeBtns = [];
-let activeAnswer = "";
-
+/**
+ * Setter hvilke div som skal vises til en hver tid.
+ * @param {*} screenElement hvilket element som skal vises.
+ */
 const setActiveScreen = (screenElement) => {
   activeScreen.style.display = "none";
   activeScreen = screenElement;
   activeScreen.style.display = "flex";
 };
 
+/**
+ * Finner spørsmål i kategorien den får inn, velger spørsmål basert på hva som er currentIndex.
+ * Lager knapper basert på antal svar til spørsmålet.
+ * @param {*} categoryName Kategorien som blir sendt inn, string.
+ */
 const fetchQuizElement = (categoryName) => {
   questionTracker.innerHTML = `${
     quizObject[categoryName].currentIndex + 1
@@ -88,6 +95,12 @@ const fetchQuizElement = (categoryName) => {
   });
 };
 
+/**
+ * Funksjon som skjekker om knappen som er trykt er rett svar.
+ * Hviser evt hva som er rett hvis knappen er feil
+ * @param {*} e click event
+ * @param {*} categoryName aktive kategorinavnet, får det fra fetchQuizElement
+ */
 function selectAnswer(e, categoryName) {
   const selectedBtn = e.target;
   if (selectedBtn.innerHTML === activeAnswer) {
@@ -107,6 +120,13 @@ function selectAnswer(e, categoryName) {
   nextButton.textContent = "Next";
   nextButton.style.display = "block";
 }
+
+/**
+ * Funksjonen som styrer "next" knappen
+ * oppdaterer current index i den aktive kategorien, starter fetchQuiz på nytt så lenge det er flere spørsmål igjen.
+ * Ellers kjører den showScore funksjon. sender categoryName videre til begge.
+ * @param {*} categoryName aktiv kategori
+ */
 function handleNextButton(categoryName) {
   quizObject[categoryName].currentIndex++;
   activeBtns.forEach((button) => {
@@ -127,6 +147,9 @@ nextButton.addEventListener("click", () => {
   handleNextButton(currentCategory);
 });
 
+/**
+ * fjerner alle knapper som blir vist dynamisk, setter activeBtns til et tomt array.
+ */
 function resetState() {
   nextButton.style.display = "none";
   activeBtns.forEach((button) => {
@@ -135,6 +158,11 @@ function resetState() {
   activeBtns = [];
 }
 
+/**
+ * resetter alle dynamiske knapper via resetState, setter summaryPage til element som vises, rekner ut hvor mange poeng du fikk og viser det.
+ * setter både currentIndex og currentScore for gjeldene kategori til 0, sånn at kategorien kan spilles på nytt.
+ * @param {*} categoryName
+ */
 function showScore(categoryName) {
   quizObject[categoryName].currentIndex = 0;
   resetState();
@@ -142,4 +170,6 @@ function showScore(categoryName) {
   scoreOutput.textContent = `${quizObject[categoryName].currentScore} of ${quizObject[categoryName].questionArray.length}`;
   quizObject[categoryName].currentScore = 0;
 }
+
+/* Reset knappen starter quizen på nytt uten å skifte kategori. */
 resetBtn.addEventListener("click", () => fetchQuizElement(currentCategory));
