@@ -1,5 +1,7 @@
 //!DENNE KODEN TRENGER IKKE Å KJØRE IGJEN, ER HER KUN FOR Å VISE ARBEIDSMETODE
 const fs = require("fs");
+const schedule = require("node-schedule");
+const git = require("simple-git");
 const filePath = "./quizObject.json";
 const quizObject = {};
 //URL for å finne alle categoriene fra openTDB
@@ -86,8 +88,11 @@ const writeObject = async () => {
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
   console.log("write successfull");
 };
-
-writeObject();
-
+schedule.scheduleJob("50 * * * * ", async () => {
+  await writeObject();
+  await git.add([quizObject.json]);
+  await git.commit("Updating quizObject");
+  await git.push();
+});
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
 /* Fungerer kun hvis man har node installert. */
