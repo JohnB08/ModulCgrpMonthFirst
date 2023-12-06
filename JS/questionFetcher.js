@@ -98,6 +98,8 @@ const writeObject = async () => {
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
   console.log("write successfull");
 };
+
+/* Scheduler som oppdaterer quizObject hver midnatt. */
 schedule.scheduleJob("@daily", async () => {
   await writeObject();
   await git().add([filePath]);
