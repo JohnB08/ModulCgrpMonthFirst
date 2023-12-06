@@ -130,13 +130,15 @@ basert på figmafil. */
 }
 
 .btnDark:hover {
-  background: var(--dark);
-  color: var(--light);
-  border: 2px solid var(--light);
+  cursor: pointer;
 }
 
 .btnDark:disabled {
-  opacity: 0.5;
+  opacity: 0.8;
+}
+
+.btnDark:disabled:hover {
+  cursor: default;
 }
 
 .legend {
