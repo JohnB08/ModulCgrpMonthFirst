@@ -10,7 +10,7 @@ const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
   btn.textContent = button;
-  btn.style.width = "10vh"
+  btn.style.width = "10vh";
   btn.style.height = "4vh";
   sideBar.appendChild(btn);
   btn.addEventListener("click", () => {
@@ -40,45 +40,6 @@ hamburgerMenu.addEventListener("click", () => {
   console.log("Hamburger button is working.");
 });
 
-/* const questions = [
-  {
-    question: "Who is the best football star in the world?",
-    answers: [
-      { text: "Lionel Messi", correct: false },
-      { text: "Cristiano Ronaldo R7", correct: false },
-      { text: "Ronaldo Phenomeno R9", correct: true },
-      { text: "Pele Edson", correct: false },
-    ],
-  },
-  {
-    question: "The first programming language?",
-    answer: [
-      { text: "python", correct: false },
-      { text: "react", correct: false },
-      { text: "javascript", correct: false },
-      { Text: "FORTRAN", correct: true },
-    ],
-  },
-  {
-    question: "Who discovered the internet?",
-    answer: [
-      { text: "Bob Khan", correct: false },
-      { text: "Vinton Cerf", correct: false },
-      { text: "Tim Berners Lee", correct: true },
-      { text: "Paul Baran", correct: false },
-    ],
-  },
-  {
-    question: "Who discovered America in the 14th century?",
-    answer: [
-      { text: "Cristoffer Columbus", correct: false },
-      { text: "Zheng He", correct: true },
-      { text: "Leif Erikson", correct: true },
-      { text: "John Alcock", correct: true },
-    ],
-  },
-];
- */
 const startPage = document.querySelector(".homeScreen");
 const questionCard = document.querySelector(".card");
 const summaryPage = document.querySelector(".summaryPage");
@@ -93,13 +54,17 @@ let activeScreen = startPage;
 let activeBtns = [];
 let activeAnswer = "";
 
+const setActiveScreen = (screenElement) => {
+  activeScreen.style.display = "none";
+  activeScreen = screenElement;
+  activeScreen.style.display = "flex";
+};
+
 const fetchQuizElement = (categoryName) => {
   questionTracker.innerHTML = `${
     quizObject[categoryName].currentIndex + 1
   } of ${quizObject[categoryName].questionArray.length} ${categoryName}`;
-  activeScreen.style.display = "none";
-  activeScreen = questionCard;
-  activeScreen.style.display = "flex";
+  setActiveScreen(questionCard);
   questionElement.innerHTML = `${
     quizObject[categoryName].questionArray[
       quizObject[categoryName].currentIndex
@@ -162,24 +127,6 @@ nextButton.addEventListener("click", () => {
   handleNextButton(currentCategory);
 });
 
-/* function showQuestion() {
-  resetState();
-  let currentQuestion = questions[currentQuestionIndex];
-  let questionNo = currentQuestionIndex + 1;
-  questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-
-  currentQuestion.answers.forEach((answer) => {
-    const button = document.createElement("button");
-    button.textContent = answer.text;
-    button.classList.add("btn", "btnDark", "btnText");
-    answerButtons.appendChild(button);
-    if (answer.correct) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener("click", selectAnswer);
-  }); */
-/* } */
-
 function resetState() {
   nextButton.style.display = "none";
   activeBtns.forEach((button) => {
@@ -191,9 +138,7 @@ function resetState() {
 function showScore(categoryName) {
   quizObject[categoryName].currentIndex = 0;
   resetState();
-  activeScreen.style.display = "none";
-  activeScreen = summaryPage;
-  activeScreen.style.display = "flex";
+  setActiveScreen(summaryPage);
   scoreOutput.textContent = `${quizObject[categoryName].currentScore} of ${quizObject[categoryName].questionArray.length}`;
   quizObject[categoryName].currentScore = 0;
 }
