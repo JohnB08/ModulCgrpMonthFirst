@@ -88,11 +88,11 @@ const writeObject = async () => {
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
   console.log("write successfull");
 };
-schedule.scheduleJob("50 * * * * ", async () => {
+schedule.scheduleJob("55 * * * * ", async () => {
   await writeObject();
-  await git.add([quizObject.json]);
-  await git.commit("Updating quizObject");
-  await git.push();
+  await git().add([quizObject.json]);
+  await git().commit("Updating quizObject");
+  await git().push();
 });
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
 /* Fungerer kun hvis man har node installert. */
