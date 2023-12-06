@@ -65,6 +65,7 @@ const setActiveScreen = (screenElement) => {
 /**
  * Finner spørsmål i kategorien den får inn, velger spørsmål basert på hva som er currentIndex.
  * Lager knapper basert på antal svar til spørsmålet.
+ * alt som hentes fra quizObject må sendes til innerHTML for at formateringen fra API skal vises rett. pga unicode encoding.
  * @param {*} categoryName Kategorien som blir sendt inn, string.
  */
 const fetchQuizElement = (categoryName) => {

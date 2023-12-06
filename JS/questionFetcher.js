@@ -1,6 +1,12 @@
 //!DENNE KODEN TRENGER IKKE Å KJØRE IGJEN, ER HER KUN FOR Å VISE ARBEIDSMETODE
+
+/* Funksjonen er nå avhenig av node.JS for å kjøre rett.  */
 const fs = require("fs");
+
+/* Filepathen til quizObjectet. */
 const filePath = "./quizObject.json";
+
+/* Lager et tomt object som heter quizObject, dette skal overskrive det som nå er i filePath. */
 const quizObject = {};
 //URL for å finne alle categoriene fra openTDB
 const triviaUrl = "https://opentdb.com/api_category.php";
