@@ -22,7 +22,7 @@ let activeAnswer = "";
 let currentCategory = "";
 let menuOpen = false;
 
-/* Lager knappene til sidebar */
+/* Lager knappene til sidebar, knappene lukker også sidebar. */
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
