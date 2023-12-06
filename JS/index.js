@@ -33,6 +33,7 @@ for (let button of buttons) {
   btn.addEventListener("click", () => {
     currentCategory = btn.textContent;
     resetState();
+    closeSideBar();
     fetchQuizElement(currentCategory);
   });
 }
@@ -185,8 +186,3 @@ function showScore(categoryName) {
 
 /* Reset knappen starter quizen på nytt uten å skifte kategori. */
 resetBtn.addEventListener("click", () => fetchQuizElement(currentCategory));
-
-SideBarContainer.addEventListener("mouseleave", () => {
-  if (!menuOpen) return;
-  else closeSideBar();
-});
