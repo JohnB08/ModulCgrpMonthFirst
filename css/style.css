@@ -54,13 +54,13 @@ body {
 }
 
 .armAnim1 {
-  transform: translate(18px) rotate(45deg);
+  transform: translate(16px) rotate(45deg);
 }
 .armAnim2 {
   opacity: 0%;
 }
 .armAnim3 {
-  transform: translate(-18px, 16px) rotate(-45deg);
+  transform: translate(-18px, 17px) rotate(-45deg);
 }
 
 .homeScreen {
