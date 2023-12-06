@@ -1,4 +1,17 @@
-import quizObject from "./quizObject.json" assert { type: "json" };
+/* Vi brukte import her før. Men import assert: JSON er ikke suporta på alle browsers. Dermed bruker vi fetchQuizObject funksjonen for å fetche data fra JSON objektet. */
+
+/**
+ * funksjon for å fetche api basert på URL
+ * @param {*} url url til api
+ * @returns jsonified response
+ */
+const fetchQuizObject = async (url) => {
+  const response = await fetch(url);
+  const result = await response.json();
+  return result;
+};
+
+const quizObject = await fetchQuizObject("./JS/quizObject.json");
 
 const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
