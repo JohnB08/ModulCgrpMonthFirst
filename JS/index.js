@@ -1,5 +1,6 @@
 import quizObject from "./quizObject.json" assert { type: "json" };
 
+const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
 const SideBarContainer = document.querySelector(".sidebarContainer");
 const startPage = document.querySelector(".homeScreen");
@@ -23,7 +24,7 @@ const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
   btn.textContent = button;
-  btn.style.width = "10vh";
+  btn.style.width = "90%";
   btn.style.height = "4vh";
   sideBar.appendChild(btn);
   btn.addEventListener("click", () => {
@@ -34,13 +35,6 @@ for (let button of buttons) {
 }
 
 /* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
-const hamburgerMenu = document.createElement("img");
-hamburgerMenu.setAttribute("src", "img/hamburger-button.svg");
-hamburgerMenu.setAttribute("width", "48");
-hamburgerMenu.setAttribute("height", "48");
-hamburgerMenu.setAttribute("alt", "test");
-hamburgerMenu.classList.add("hamburgermenu");
-document.body.appendChild(hamburgerMenu);
 hamburgerMenu.addEventListener("click", () => {
   if (menuOpen === false) {
     SideBarContainer.style.display = "flex";
