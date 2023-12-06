@@ -88,9 +88,9 @@ const writeObject = async () => {
   fs.writeFileSync(filePath, JSON.stringify(quizObject, null, 2));
   console.log("write successfull");
 };
-schedule.scheduleJob("55 * * * * ", async () => {
+schedule.scheduleJob("01 * * * * ", async () => {
   await writeObject();
-  await git().add([quizObject.json]);
+  await git().add(["./quizObject.json"]);
   await git().commit("Updating quizObject");
   await git().push();
 });
