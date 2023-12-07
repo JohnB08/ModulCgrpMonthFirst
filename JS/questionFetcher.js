@@ -105,7 +105,7 @@ const writeObject = async () => {
 };
 
 /* Scheduler som oppdaterer quizObject hver midnatt. */
-schedule.scheduleJob("18 20 * * *", async () => {
+schedule.scheduleJob("0 1 * * *", async () => {
   console.log("starting script");
   await writeObject();
   console.log("adding to git commit");
