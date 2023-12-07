@@ -39,12 +39,17 @@ let menuOpen = false;
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
-  btn.textContent = button;
+  btn.value = button;
+  let cleansedButtonText = "";
+  if (button.includes("Entertainment:"))
+    cleansedButtonText = button.split("Entertainment:").pop();
+  else cleansedButtonText = button;
+  btn.textContent = cleansedButtonText;
   btn.classList.add("btn", "btnDark", "btnText");
   sideBar.appendChild(btn);
   /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {
-    currentCategory = btn.textContent;
+    currentCategory = btn.value;
     resetState();
     closeSideBar();
     fetchQuizElement(currentCategory);
