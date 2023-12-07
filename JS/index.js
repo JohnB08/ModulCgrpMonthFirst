@@ -93,12 +93,54 @@ const setActiveScreen = (screenElement) => {
 };
 
 /**
+ * Ser om score finnes i local storage for gjeldene kategori.
+ * @param {*} categoryName
+ * @returns
+ */
+const fetchLocalStorageScore = (categoryName) => {
+  let currentScore =
+    JSON.parse(localStorage.getItem(`${categoryName}Score`)) || 0;
+  return currentScore;
+};
+
+/**
+ * Ser om index finnes i local storage for gjeldene kategori.
+ * @param {*} categoryName
+ * @returns
+ */
+const fetchLocalStorageIndex = (categoryName) => {
+  let currentIndex =
+    JSON.parse(localStorage.getItem(`${categoryName}Index`)) || 0;
+  return currentIndex;
+};
+
+/**
+ * lagrer scoren for gjeldene kategori i local storage.
+ * @param {*} categoryName
+ * @param {*} score
+ */
+const setLocalStorageScore = (categoryName, score) => {
+  localStorage.setItem(`${categoryName}Score`, JSON.stringify(score));
+};
+
+/**
+ * lagrer index for gjeldene kategori i local storage.
+ * @param {*} categoryName
+ * @param {*} index
+ */
+const setlocalStorageIndex = (categoryName, index) => {
+  localStorage.setItem(`${categoryName}Index`, index);
+};
+
+/**
  * Finner spørsmål i kategorien den får inn, velger spørsmål basert på hva som er currentIndex.
  * Lager knapper basert på antal svar til spørsmålet.
  * alt som hentes fra quizObject må sendes til innerHTML for at formateringen fra API skal vises rett. pga unicode encoding.
  * @param {*} categoryName Kategorien som blir sendt inn, string.
  */
 const fetchQuizElement = (categoryName) => {
+  quizObject[categoryName].currentIndex = fetchLocalStorageIndex(categoryName);
+  quizObject[categoryName].currentScore = fetchLocalStorageScore(categoryName);
   questionTracker.innerHTML = `${
     quizObject[categoryName].currentIndex + 1
   } of ${quizObject[categoryName].questionArray.length} ${categoryName}`;
@@ -138,6 +180,7 @@ function selectAnswer(e, categoryName) {
     selectedBtn.classList.add("correct");
     console.log("correct!");
     quizObject[categoryName].currentScore++;
+    setLocalStorageScore(categoryName, quizObject[categoryName].currentScore);
   } else {
     selectedBtn.classList.add("incorrect");
   }
@@ -160,6 +203,7 @@ function selectAnswer(e, categoryName) {
  */
 function handleNextButton(categoryName) {
   quizObject[categoryName].currentIndex++;
+  setlocalStorageIndex(categoryName, quizObject[categoryName].currentIndex);
   activeBtns.forEach((button) => {
     button.remove();
   });
@@ -196,10 +240,12 @@ function resetState() {
  */
 function showScore(categoryName) {
   quizObject[categoryName].currentIndex = 0;
+  setlocalStorageIndex(categoryName, quizObject[categoryName].currentIndex);
   resetState();
   setActiveScreen(summaryPage);
   scoreOutput.textContent = `${quizObject[categoryName].currentScore} of ${quizObject[categoryName].questionArray.length}`;
   quizObject[categoryName].currentScore = 0;
+  setLocalStorageScore(categoryName, quizObject[categoryName].currentScore);
 }
 
 /* Reset knappen starter quizen på nytt uten å skifte kategori. */
