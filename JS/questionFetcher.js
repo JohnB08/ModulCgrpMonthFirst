@@ -112,4 +112,6 @@ schedule.scheduleJob("0 5 * * *", async () => {
   console.log("push complete");
 });
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
-/* Fungerer kun hvis man har node installert. */
+/* Fungerer kun hvis man har node og alle andre packages installert og er checkout til rett repository.
+Dette kan potensielt kjøres på en raspberry pi infinitum. Regna litt på det i går, og selv om den oppdaterer quizObject hver natt,
+vil vi nå maxsize på github repository om 300 år ish. */
