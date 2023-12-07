@@ -58,12 +58,7 @@ for (let button of buttons) {
 
 /* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
 hamburgerMenu.addEventListener("click", () => {
-  if (menuOpen === false) {
-    openSideBar();
-  } else {
-    closeSideBar();
-  }
-  console.log("Hamburger button is working.");
+  !menuOpen ? openSideBar() : closeSideBar();
 });
 
 function openSideBar() {
@@ -204,10 +199,7 @@ function selectAnswer(e, categoryName) {
 function handleNextButton(categoryName) {
   quizObject[categoryName].currentIndex++;
   setlocalStorageIndex(categoryName, quizObject[categoryName].currentIndex);
-  activeBtns.forEach((button) => {
-    button.remove();
-  });
-  activeBtns = [];
+  resetState();
   if (
     quizObject[categoryName].currentIndex <
     quizObject[categoryName].questionArray.length
