@@ -49,9 +49,7 @@ body {
   overflow-y: scroll;
 }
 
-#arm1,
-#arm2,
-#arm3 {
+.arm {
   transition: 300ms ease-in;
 }
 
