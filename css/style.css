@@ -26,6 +26,7 @@ body {
   height: 48px;
   background-color: var(--light);
   border-radius: 10%;
+  z-index: 3;
 }
 .hamburgermenu:hover {
   cursor: pointer;
@@ -34,17 +35,18 @@ body {
 .sidebarContainer {
   display: none;
   position: absolute;
-  margin: 0 100px;
   height: 100%;
   background-color: var(--dark);
   border-right: 2px solid var(--borderColor);
+  z-index: 2;
 }
 
 .sidebar {
   display: flex;
-  padding: 20px 0;
+  padding: 20px 20px 20px 100px;
   flex-direction: column;
-  width: 30vw;
+  width: 40vw;
+  overflow-y: scroll;
 }
 
 #arm1,
@@ -186,6 +188,6 @@ basert på figmafil. */
     font-size: 12px;
   }
   .sidebar {
-    width: 50vw;
+    width: 90vw;
   }
 }

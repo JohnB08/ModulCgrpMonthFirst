@@ -40,8 +40,7 @@ const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
   btn.textContent = button;
-  btn.style.width = "90%";
-  btn.style.height = "4vh";
+  btn.classList.add("btn", "btnDark", "btnText");
   sideBar.appendChild(btn);
   /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {
