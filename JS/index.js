@@ -45,7 +45,7 @@ for (let button of buttons) {
     cleansedButtonText = button.split("Entertainment:").pop();
   else cleansedButtonText = button;
   btn.textContent = cleansedButtonText;
-  btn.classList.add("btn", "btnDark", "btnText");
+  btn.classList.add("btn", "btnDark", "btnText", "sideBarBtn");
   sideBar.appendChild(btn);
   /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {

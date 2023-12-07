@@ -131,6 +131,11 @@ basert på figmafil. */
   border: 2px solid var(--dark);
 }
 
+.sideBarBtn:hover {
+  border: 2px solid var(--borderColor);
+  transform: scale(105%);
+}
+
 .btnDark:hover {
   cursor: pointer;
 }
