@@ -101,10 +101,15 @@ const writeObject = async () => {
 
 /* Scheduler som oppdaterer quizObject hver midnatt. */
 schedule.scheduleJob("0 5 * * *", async () => {
+  console.log("starting script");
   await writeObject();
+  console.log("adding to git commit");
   await git().add([filePath]);
+  console.log("commiting change");
   await git().commit("Updating quizObject");
+  console.log("pushing change");
   await git().push();
+  console.log("push complete");
 });
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
 /* Fungerer kun hvis man har node installert. */
