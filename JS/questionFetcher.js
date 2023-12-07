@@ -100,7 +100,7 @@ const writeObject = async () => {
 };
 
 /* Scheduler som oppdaterer quizObject hver midnatt. */
-schedule.scheduleJob("@daily", async () => {
+schedule.scheduleJob("0 5 * * *", async () => {
   await writeObject();
   await git().add([filePath]);
   await git().commit("Updating quizObject");
