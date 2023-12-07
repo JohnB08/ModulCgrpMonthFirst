@@ -1,6 +1,18 @@
 //!DENNE KODEN TRENGER IKKE Å KJØRE IGJEN, ER HER KUN FOR Å VISE ARBEIDSMETODE
+
+/* dette er en node package som lar meg skrive til en fil */
 const fs = require("fs");
+
+/* Dette er en nodepackage som lar meg sette opp en "schedule" via en cron */
+const schedule = require("node-schedule");
+
+/* Dette er en nodepackage som lar meg bruke gitcommands i nodeJS */
+const git = require("simple-git");
+
+/* dette er filepathen til quizObject */
 const filePath = "./quizObject.json";
+
+/* Starter med å lage et tomt object, dette skal overskrive det som finnes i quizObject allerede. */
 const quizObject = {};
 //URL for å finne alle categoriene fra openTDB
 const triviaUrl = "https://opentdb.com/api_category.php";
@@ -87,7 +99,19 @@ const writeObject = async () => {
   console.log("write successfull");
 };
 
-writeObject();
-
+/* Scheduler som oppdaterer quizObject hver midnatt. */
+schedule.scheduleJob("0 5 * * *", async () => {
+  console.log("starting script");
+  await writeObject();
+  console.log("adding to git commit");
+  await git().add([filePath]);
+  console.log("commiting change");
+  await git().commit("Updating quizObject");
+  console.log("pushing change");
+  await git().push();
+  console.log("push complete");
+});
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
-/* Fungerer kun hvis man har node installert. */
+/* Fungerer kun hvis man har node og alle andre packages installert og er checkout til rett repository.
+Dette kan potensielt kjøres på en raspberry pi infinitum. Regna litt på det i går, og selv om den oppdaterer quizObject hver natt,
+vil vi nå maxsize på github repository om 300 år ish. */

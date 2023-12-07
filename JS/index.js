@@ -1,4 +1,17 @@
-import quizObject from "./quizObject.json" assert { type: "json" };
+/* Vi brukte import her før. Men import assert: JSON er ikke suporta på alle browsers. Dermed bruker vi fetchQuizObject funksjonen for å fetche data fra JSON objektet. */
+
+/**
+ * funksjon for å fetche quizObject fra JSON fil til index.js
+ * @param {*} location hvor quizObject er lagret
+ * @returns jsonified response
+ */
+const fetchQuizObject = async (location) => {
+  const response = await fetch(location);
+  const result = await response.json();
+  return result;
+};
+
+const quizObject = await fetchQuizObject("./JS/quizObject.json");
 
 const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
@@ -22,17 +35,18 @@ let activeAnswer = "";
 let currentCategory = "";
 let menuOpen = false;
 
-/* Lager knappene til sidebar */
+/* Lager knappene til sidebar, knappene lukker også sidebar. */
 const buttons = Object.keys(quizObject);
 for (let button of buttons) {
   const btn = document.createElement("button");
   btn.textContent = button;
-  btn.style.width = "90%";
-  btn.style.height = "4vh";
+  btn.classList.add("btn", "btnDark", "btnText");
   sideBar.appendChild(btn);
+  /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {
     currentCategory = btn.textContent;
     resetState();
+    closeSideBar();
     fetchQuizElement(currentCategory);
   });
 }
