@@ -11,7 +11,23 @@ const fetchQuizObject = async (location) => {
   return result;
 };
 
+/* Fetcher quizObjectet fra json fil */
 const quizObject = await fetchQuizObject("./JS/quizObject.json");
+
+/**
+ * Funksjon som ser om objektet er oppdatert siden sist siden ble lastet inn hos bruker.
+ * @returns
+ */
+const updateChecker = () => {
+  if (quizObject.updateKey === JSON.parse(localStorage.getItem("updateKey")))
+    return;
+  else {
+    localStorage.clear();
+    localStorage.setItem("updateKey", JSON.stringify(quizObject.updateKey));
+  }
+};
+
+updateChecker();
 
 const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
@@ -94,16 +110,6 @@ const setActiveScreen = (screenElement) => {
   activeScreen.style.display = "flex";
 };
 
-const updateChecker = () => {
-  if (quizObject.updateKey === JSON.parse(localStorage.getItem("updateKey")))
-    return;
-  else {
-    localStorage.clear();
-    localStorage.setItem("updateKey", JSON.stringify(quizObject.updateKey));
-  }
-};
-
-updateChecker();
 /**
  * Ser om score finnes i local storage for gjeldene kategori.
  * @param {*} categoryName
