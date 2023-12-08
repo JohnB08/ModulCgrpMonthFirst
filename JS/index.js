@@ -27,7 +27,11 @@ const updateChecker = () => {
   }
 };
 
+/* Ser om quizObjektet har blitt oppdatert siden sist. */
+
 updateChecker();
+
+/* Henter elementer fra document. */
 
 const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
@@ -42,6 +46,8 @@ const scoreOutput = document.querySelector(".scoreOutput");
 const resetBtn = document.querySelector("#resetBtn");
 const questionTracker = document.querySelector("#questionTracker");
 const hamParts = document.querySelectorAll(".arm");
+
+/* Lager globale variabler som appen jobber med. */
 
 let activeScreen = startPage;
 let activeBtns = [];
