@@ -217,6 +217,7 @@ function selectAnswer(e, categoryName) {
     }
   });
   nextButton.textContent = "Next";
+  nextButton.disabled = false;
   nextButton.style.opacity = "100%";
 }
 
@@ -248,6 +249,7 @@ nextButton.addEventListener("click", () => {
  * fjerner alle knapper som blir vist dynamisk, setter activeBtns til et tomt array.
  */
 function resetState() {
+  nextButton.disabled = true;
   nextButton.style.opacity = "0%";
   activeBtns.forEach((button) => {
     button.remove();
