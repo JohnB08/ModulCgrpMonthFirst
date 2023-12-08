@@ -11,7 +11,27 @@ const fetchQuizObject = async (location) => {
   return result;
 };
 
+/* Fetcher quizObjectet fra json fil */
 const quizObject = await fetchQuizObject("./JS/quizObject.json");
+
+/**
+ * Funksjon som ser om objektet er oppdatert siden sist siden ble lastet inn hos bruker.
+ * @returns
+ */
+const updateChecker = () => {
+  if (quizObject.updateKey === JSON.parse(localStorage.getItem("updateKey")))
+    return;
+  else {
+    localStorage.clear();
+    localStorage.setItem("updateKey", JSON.stringify(quizObject.updateKey));
+  }
+};
+
+/* Ser om quizObjektet har blitt oppdatert siden sist. */
+
+updateChecker();
+
+/* Henter elementer fra document. */
 
 const hamburgerMenu = document.querySelector(".hamburgermenu");
 const sideBar = document.querySelector(".sidebar");
@@ -25,26 +45,34 @@ const nextButton = document.getElementById("next-btn");
 const scoreOutput = document.querySelector(".scoreOutput");
 const resetBtn = document.querySelector("#resetBtn");
 const questionTracker = document.querySelector("#questionTracker");
-const arm1 = document.querySelector("#arm1");
-const arm2 = document.querySelector("#arm2");
-const arm3 = document.querySelector("#arm3");
+const hamParts = document.querySelectorAll(".arm");
+
+/* Lager globale variabler som appen jobber med. */
 
 let activeScreen = startPage;
 let activeBtns = [];
 let activeAnswer = "";
-let currentCategory = "";
+let currentCategory = "General Knowledge";
 let menuOpen = false;
+let currentCategoryObject = {};
+
+/* Oppdater dette arrayet med andre keys som skal bli ignorert av quiz. */
 
 /* Lager knappene til sidebar, knappene lukker også sidebar. */
-const buttons = Object.keys(quizObject);
+const buttons = Object.keys(quizObject.categories);
 for (let button of buttons) {
   const btn = document.createElement("button");
-  btn.textContent = button;
-  btn.classList.add("btn", "btnDark", "btnText");
+  btn.value = button;
+  let cleansedButtonText = "";
+  if (button.includes("Entertainment:"))
+    cleansedButtonText = button.split("Entertainment:").pop();
+  else cleansedButtonText = button;
+  btn.textContent = cleansedButtonText;
+  btn.classList.add("btn", "btnDark", "btnText", "sideBarBtn");
   sideBar.appendChild(btn);
   /* eventlistener til hver knapp. Lukker også sidebar */
   btn.addEventListener("click", () => {
-    currentCategory = btn.textContent;
+    currentCategory = btn.value;
     resetState();
     closeSideBar();
     fetchQuizElement(currentCategory);
@@ -53,27 +81,28 @@ for (let button of buttons) {
 
 /* Lager hamburgermeny knappen som åpner og lukker sidebaren. */
 hamburgerMenu.addEventListener("click", () => {
-  if (menuOpen === false) {
-    openSideBar();
-  } else {
-    closeSideBar();
-  }
-  console.log("Hamburger button is working.");
+  !menuOpen ? openSideBar() : closeSideBar();
 });
 
+/**
+ * Funksjon som åpner sidebar og animerer hamburger knapp
+ */
 function openSideBar() {
   SideBarContainer.style.display = "flex";
-  arm1.classList.add("armAnim1");
-  arm2.classList.add("armAnim2");
-  arm3.classList.add("armAnim3");
+  for (let i = 0; i < hamParts.length; i++) {
+    hamParts[i].classList.add(`armAnim${i + 1}`);
+  }
   menuOpen = true;
 }
 
+/**
+ * funksjon som lukker sidebar og animerer hamburger knapp
+ */
 function closeSideBar() {
   SideBarContainer.style.display = "none";
-  arm1.classList.remove("armAnim1");
-  arm2.classList.remove("armAnim2");
-  arm3.classList.remove("armAnim3");
+  for (let i = 0; i < hamParts.length; i++) {
+    hamParts[i].classList.remove(`armAnim${i + 1}`);
+  }
   menuOpen = false;
 }
 
@@ -88,27 +117,70 @@ const setActiveScreen = (screenElement) => {
 };
 
 /**
+ * Ser om score finnes i local storage for gjeldene kategori.
+ * @param {*} categoryName
+ * @returns
+ */
+const fetchLocalStorageScore = (categoryName) => {
+  let currentScore =
+    JSON.parse(localStorage.getItem(`${categoryName}Score`)) || 0;
+  return currentScore;
+};
+
+/**
+ * Ser om index finnes i local storage for gjeldene kategori.
+ * @param {*} categoryName
+ * @returns
+ */
+const fetchLocalStorageIndex = (categoryName) => {
+  let currentIndex =
+    JSON.parse(localStorage.getItem(`${categoryName}Index`)) || 0;
+  return currentIndex;
+};
+
+/**
+ * lagrer scoren for gjeldene kategori i local storage.
+ * @param {*} categoryName
+ * @param {*} score
+ */
+const setLocalStorageScore = (categoryName, score) => {
+  localStorage.setItem(`${categoryName}Score`, JSON.stringify(score));
+};
+
+/**
+ * lagrer index for gjeldene kategori i local storage.
+ * @param {*} categoryName
+ * @param {*} index
+ */
+const setlocalStorageIndex = (categoryName, index) => {
+  localStorage.setItem(`${categoryName}Index`, index);
+};
+
+/**
  * Finner spørsmål i kategorien den får inn, velger spørsmål basert på hva som er currentIndex.
  * Lager knapper basert på antal svar til spørsmålet.
  * alt som hentes fra quizObject må sendes til innerHTML for at formateringen fra API skal vises rett. pga unicode encoding.
  * @param {*} categoryName Kategorien som blir sendt inn, string.
  */
 const fetchQuizElement = (categoryName) => {
-  questionTracker.innerHTML = `${
-    quizObject[categoryName].currentIndex + 1
-  } of ${quizObject[categoryName].questionArray.length} ${categoryName}`;
+  /* For å gjøre koden mer leslig lagrer vi quizObject i en currentCategoryObject variabel. */
+  currentCategoryObject = quizObject.categories[categoryName];
+  currentCategoryObject.currentIndex = fetchLocalStorageIndex(categoryName);
+  currentCategoryObject.currentScore = fetchLocalStorageScore(categoryName);
+  /* Vi bruker innerHTML for at spørsmålene skal dekodes rett. */
+  questionTracker.innerHTML = `${currentCategoryObject.currentIndex + 1} of ${
+    currentCategoryObject.questionArray.length
+  } ${categoryName}`;
   setActiveScreen(questionCard);
   questionElement.innerHTML = `${
-    quizObject[categoryName].questionArray[
-      quizObject[categoryName].currentIndex
-    ].question
+    currentCategoryObject.questionArray[currentCategoryObject.currentIndex]
+      .question
   }`;
   activeAnswer =
-    quizObject[categoryName].questionArray[
-      quizObject[categoryName].currentIndex
-    ].correct_answer;
-  quizObject[categoryName].questionArray[
-    quizObject[categoryName].currentIndex
+    currentCategoryObject.questionArray[currentCategoryObject.currentIndex]
+      .correct_answer;
+  currentCategoryObject.questionArray[
+    currentCategoryObject.currentIndex
   ].allAnswers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerHTML = answer;
@@ -132,7 +204,8 @@ function selectAnswer(e, categoryName) {
   if (selectedBtn.innerHTML === activeAnswer) {
     selectedBtn.classList.add("correct");
     console.log("correct!");
-    quizObject[categoryName].currentScore++;
+    currentCategoryObject.currentScore++;
+    setLocalStorageScore(categoryName, currentCategoryObject.currentScore);
   } else {
     selectedBtn.classList.add("incorrect");
   }
@@ -154,14 +227,12 @@ function selectAnswer(e, categoryName) {
  * @param {*} categoryName aktiv kategori
  */
 function handleNextButton(categoryName) {
-  quizObject[categoryName].currentIndex++;
-  activeBtns.forEach((button) => {
-    button.remove();
-  });
-  activeBtns = [];
+  currentCategoryObject.currentIndex++;
+  setlocalStorageIndex(categoryName, currentCategoryObject.currentIndex);
+  resetState();
   if (
-    quizObject[categoryName].currentIndex <
-    quizObject[categoryName].questionArray.length
+    currentCategoryObject.currentIndex <
+    currentCategoryObject.questionArray.length
   ) {
     fetchQuizElement(categoryName);
   } else {
@@ -190,11 +261,13 @@ function resetState() {
  * @param {*} categoryName
  */
 function showScore(categoryName) {
-  quizObject[categoryName].currentIndex = 0;
   resetState();
   setActiveScreen(summaryPage);
-  scoreOutput.textContent = `${quizObject[categoryName].currentScore} of ${quizObject[categoryName].questionArray.length}`;
-  quizObject[categoryName].currentScore = 0;
+  scoreOutput.textContent = `${currentCategoryObject.currentScore} of ${currentCategoryObject.questionArray.length}`;
+  currentCategoryObject.currentIndex = 0;
+  setlocalStorageIndex(categoryName, currentCategoryObject.currentIndex);
+  currentCategoryObject.currentScore = 0;
+  setLocalStorageScore(categoryName, currentCategoryObject.currentScore);
 }
 
 /* Reset knappen starter quizen på nytt uten å skifte kategori. */

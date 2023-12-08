@@ -49,9 +49,7 @@ body {
   overflow-y: scroll;
 }
 
-#arm1,
-#arm2,
-#arm3 {
+.arm {
   transition: 300ms ease-in;
 }
 
@@ -129,6 +127,11 @@ basert på figmafil. */
   background: var(--light);
   color: var(--dark);
   border: 2px solid var(--dark);
+}
+
+.sideBarBtn:hover {
+  border: 2px solid var(--borderColor);
+  transform: scale(105%);
 }
 
 .btnDark:hover {

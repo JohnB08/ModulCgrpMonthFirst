@@ -14,6 +14,11 @@ const filePath = "./quizObject.json";
 
 /* Starter med å lage et tomt object, dette skal overskrive det som finnes i quizObject allerede. */
 const quizObject = {};
+quizObject.categories = {};
+
+/* Lager en key av random tall. Disse skal sammenlignes med tilsvarende tall i localStorage for å se om localStorage skal cleares eller ikke. */
+const key = Math.random().toFixed(8) * 100000000;
+quizObject.updateKey = key;
 //URL for å finne alle categoriene fra openTDB
 const triviaUrl = "https://opentdb.com/api_category.php";
 
@@ -56,7 +61,7 @@ const getCategories = async () => {
   const fetchedCategoryObject = await fetchApi(triviaUrl);
   const categories = fetchedCategoryObject.trivia_categories;
   for (let category of categories) {
-    quizObject[category.name] = category;
+    quizObject.categories[category.name] = category;
   }
   await getQuestions();
 };
@@ -69,18 +74,18 @@ const getCategories = async () => {
  * lagrer questions i questionArray til categorien.
  */
 const getQuestions = async () => {
-  const categories = Object.keys(quizObject);
+  const categories = Object.keys(quizObject.categories);
   let categoryIndex = 0;
   for (let category of categories) {
     await returnPromise(6000);
     categoryIndex++;
     console.log(`fetching category ${categoryIndex}`);
-    const questionUrl = `https://opentdb.com/api.php?amount=10&category=${quizObject[category].id}&type=multiple`;
+    const questionUrl = `https://opentdb.com/api.php?amount=10&category=${quizObject.categories[category].id}&type=multiple`;
     const fetchedQuestions = await fetchApi(questionUrl);
-    quizObject[category].currentIndex = 0;
-    quizObject[category].currentScore = 0;
-    quizObject[category].questionArray = fetchedQuestions.results;
-    for (let answers of quizObject[category].questionArray) {
+    quizObject.categories[category].currentIndex = 0;
+    quizObject.categories[category].currentScore = 0;
+    quizObject.categories[category].questionArray = fetchedQuestions.results;
+    for (let answers of quizObject.categories[category].questionArray) {
       answers.allAnswers = answers.incorrect_answers.map((x) => x);
       answers.allAnswers.push(answers.correct_answer);
       answers.allAnswers.sort();
@@ -100,7 +105,7 @@ const writeObject = async () => {
 };
 
 /* Scheduler som oppdaterer quizObject hver midnatt. */
-schedule.scheduleJob("0 5 * * *", async () => {
+schedule.scheduleJob("0 1 * * *", async () => {
   console.log("starting script");
   await writeObject();
   console.log("adding to git commit");
