@@ -217,7 +217,7 @@ function selectAnswer(e, categoryName) {
     }
   });
   nextButton.textContent = "Next";
-  nextButton.style.display = "block";
+  nextButton.style.opacity = "100%";
 }
 
 /**
@@ -248,7 +248,7 @@ nextButton.addEventListener("click", () => {
  * fjerner alle knapper som blir vist dynamisk, setter activeBtns til et tomt array.
  */
 function resetState() {
-  nextButton.style.display = "none";
+  nextButton.style.opacity = "0%";
   activeBtns.forEach((button) => {
     button.remove();
   });
