@@ -104,8 +104,10 @@ const writeObject = async () => {
   console.log("write successfull");
 };
 
-/* Scheduler som oppdaterer quizObject hver midnatt. */
-schedule.scheduleJob("0 1 * * *", async () => {
+/**
+ * funksjon som snakker med API, og poster nytt objekt til github.
+ */
+const fetchAndPost = async () => {
   console.log("starting script");
   await writeObject();
   console.log("adding to git commit");
@@ -115,6 +117,15 @@ schedule.scheduleJob("0 1 * * *", async () => {
   console.log("pushing change");
   await git().push();
   console.log("push complete");
+};
+
+/* Scheduler som oppdaterer quizObject hver midnatt. */
+schedule.scheduleJob("0 1 * * *", async () => {
+  try {
+    await fetchAndPost();
+  } catch (error) {
+    console.log(error);
+  }
 });
 /* Adda mulighet å kjøre scriptet i console via node questionFetcher.js, så lenge man CD til js folder. */
 /* Fungerer kun hvis man har node og alle andre packages installert og er checkout til rett repository.
