@@ -17,8 +17,8 @@ const quizObject = {};
 quizObject.categories = {};
 
 /* Lager en key av random tall. Disse skal sammenlignes med tilsvarende tall i localStorage for å se om localStorage skal cleares eller ikke. */
-const key = Math.random() * 10000;
-quizObject.updateKey = key.toFixed(8);
+const key = Math.random().toFixed(8) * 100000000;
+quizObject.updateKey = key;
 //URL for å finne alle categoriene fra openTDB
 const triviaUrl = "https://opentdb.com/api_category.php";
 
